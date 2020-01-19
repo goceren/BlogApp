@@ -1,0 +1,17 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/lib/twitter-bootstrap/css/bootstrap.css",
+      "wwwroot/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.js",
+      "wwwroot/lib/twitter-bootstrap/js/bootstrap.js",
+      "wwwroot/js/script.js"
+    ]
+  }
+]
