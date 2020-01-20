@@ -3,7 +3,9 @@
     "outputFileName": "wwwroot/css/bundle.css",
     "inputFiles": [
       "wwwroot/lib/twitter-bootstrap/css/bootstrap.css",
+      "wwwroot/lib/font-awesome/css/all.css",
       "wwwroot/css/style.css"
+
     ]
   },
   {
