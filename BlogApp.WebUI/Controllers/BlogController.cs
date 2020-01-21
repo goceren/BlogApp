@@ -44,7 +44,30 @@ namespace BlogApp.WebUI.Controllers
                 _blogRepository.AddBlog(entity);
                 return RedirectToAction("List");
             }
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "CategoryId", "Name");
             return View(entity);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "CategoryId", "Name");
+            return View(_blogRepository.GetById(id));
+        }
+        
+        [HttpPost]
+        public IActionResult Edit(Blog entity)
+        {
+            if (ModelState.IsValid)
+            {
+                _blogRepository.UpdateBlog(entity);
+                TempData["message"] = $"{entity.Title} güncellendi";
+                return RedirectToAction("List");
+            }
+            else
+            {
+                ViewBag.Categories = new SelectList(_categoryRepository.GetAll(), "CategoryId", "Name");
+                return View(entity);
+            }
         }
     }
 }
