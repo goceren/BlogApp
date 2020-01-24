@@ -40,6 +40,23 @@ namespace BlogApp.Data.Concrete.EfCore
             return context.Categories.FirstOrDefault(p => p.CategoryId == categoryId);
         }
 
+        public void SaveCategory(Category entity)
+        {
+            if (entity.CategoryId == 0)
+            {
+                context.Categories.Add(entity);
+            }
+            else
+            {
+                var category = GetById(entity.CategoryId);
+                if (category != null)
+                {
+                    category.Name = entity.Name;                 
+                }
+            }
+            context.SaveChanges();
+        }
+
         public void UpdateCategory(Category entity)
         {
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

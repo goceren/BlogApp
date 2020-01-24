@@ -14,8 +14,11 @@ namespace BlogApp.Entity
         public string Image { get; set; }
         [BindNever]
         public DateTime Date { get; set; }
+        public bool IsHome { get; set; }
+        public bool IsSlider { get; set; }
         public bool isApproved { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
     }
 }

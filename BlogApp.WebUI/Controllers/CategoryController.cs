@@ -10,10 +10,10 @@ namespace BlogApp.WebUI.Controllers
 {
     public class CategoryController : Controller
     {
-        private ICategoryRepository repository;
+        private ICategoryRepository _categoryRepository;
         public CategoryController(ICategoryRepository _repo)
         {
-            repository = _repo;
+            _categoryRepository = _repo;
         }
         public IActionResult Index()
         {
@@ -21,22 +21,43 @@ namespace BlogApp.WebUI.Controllers
         }
         public IActionResult List()
         {
-            return View(repository.GetAll());
+            return View(_categoryRepository.GetAll());
         }
-        public IActionResult Create()
+       
+        public IActionResult AddOrUpdate(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return View(new Category());
+            }
+            else
+            {
+                return View(_categoryRepository.GetById((int)id));
+            } 
         }
-
         [HttpPost]
-        public IActionResult Create(Category entity)
+        public IActionResult AddOrUpdate(Category entity)
         {
             if (ModelState.IsValid)
             {
-                repository.AddCategory(entity);
+                _categoryRepository.SaveCategory(entity);
+                TempData["message"] = $"{entity.Name} kayıt edildi.";
                 return RedirectToAction("List");
             }
             return View(entity);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            return View(_categoryRepository.GetById(id));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirm(int CategoryId)
+        {
+            _categoryRepository.DeleteCategory(CategoryId);
+            TempData["message"] = $"{CategoryId} numaralı kayıt silindi";
+            return RedirectToAction("List");
         }
     }
 }
